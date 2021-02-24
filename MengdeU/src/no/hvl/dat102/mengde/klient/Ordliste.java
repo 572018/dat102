@@ -47,7 +47,7 @@ public class Ordliste {
 
 		ordListeBegge = (KjedetMengde<String>) ordListe1.union(ordListe2);
 
-		System.out.println("\nUtskrift av unionen av begge ordlistene");
+		System.out.println("\nUtskrift av unionen av begge ordlistene" );
 		String hentStreng = "";
 		while (!ordListeBegge.erTom()) {
 			hentStreng = ordListeBegge.fjernTilfeldig();

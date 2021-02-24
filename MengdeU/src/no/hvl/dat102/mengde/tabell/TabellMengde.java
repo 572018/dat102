@@ -74,12 +74,16 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
 		if (erTom())
 			throw new EmptyCollectionException("mengde");
-
-		boolean funnet = false;
 		T svar = null;
-		/*
-		 * 
-		 */
+		boolean funnet = false;
+		int i = 0;
+		while((this.tab != null) && (funnet == false)) {
+			if(this.tab[i] == element) {
+				svar = this.tab[i];
+				this.tab[i] = null;
+			}
+			i++;
+		}
 		return svar;
 	}
 
@@ -111,13 +115,22 @@ public class TabellMengde<T> implements MengdeADT<T> {
 	@Override
 	public boolean equals(Object m2) {
 		//TODO
-		boolean likeMengder = true;
-		T element;
+		
+		if(this==m2)
+			return true;
+		
+		MengdeADT<T> mgd2 = (MengdeADT<T>)m2;
+			if(!(mgd2.antall() == antall())) {
+				return false;
+			}
 
-		/*
-		 * ...
-		 */
-		return likeMengder;
+		Iterator<T> itor = oppramser();
+		while(itor.hasNext()) { 
+				if(!mgd2.inneholder(itor.next())) {
+					return false;
+				}			
+			}
+			return true;
 	}
 
 	@Override
@@ -142,21 +155,27 @@ public class TabellMengde<T> implements MengdeADT<T> {
 	public MengdeADT<T> union(MengdeADT<T> m2) {
 		//TODO
 		MengdeADT<T> begge = new TabellMengde<T>();
-		T element = null;
-		/*
-		 * ...
-		 * 
-		 */
+		begge.leggTilAlle(m2);
+		int i = 0;
+		while(this.tab[i+1]!=null) {
+			if(!begge.inneholder(this.tab[i]))
+				begge.leggTil(this.tab[i]);
+			i++;
+		}
+		
 		return begge;
 	}//
 
 	@Override
 	public MengdeADT<T> snitt(MengdeADT<T> m2) {
 		MengdeADT<T> snittM = new TabellMengde<T>();
-		T element = null;
-		/*
-		 * ...
-		 */
+		snittM.leggTilAlle(m2);
+		int i = 0;
+		while(!(snittM.inneholder(this.tab[i])) && (this.tab[i]!=null)){
+			if(!(m2.inneholder(this.tab[i])))
+				snittM.fjern(this.tab[i]);
+			i++;
+		}
 		return snittM;
 	}
 
@@ -164,13 +183,12 @@ public class TabellMengde<T> implements MengdeADT<T> {
 	public MengdeADT<T> differens(MengdeADT<T> m2) {
 		//TODO
 		MengdeADT<T> differensM = new TabellMengde<T>();
-		T element;
-		/*
-		 * Fyll ut
-		 * 
-		 * if (!m2.inneholder(element)) ((TabellMengde<T>) differensM).settInn(element);
-		 */
-
+		int i = 0;
+		while(this.tab[i]!=null){
+			if(!(m2.inneholder(this.tab[i]))) 
+				differensM.leggTil(this.tab[i]);
+			i++;
+		}
 		return differensM;
 	}
 

@@ -37,6 +37,7 @@ public class TabellIterator<T> implements Iterator<T>{
    @Override
 	public void remove(){
     // Fjerner elementet vi står på
+	   
      System.out.println("Denne er ikke implementert");
  }
 }//class

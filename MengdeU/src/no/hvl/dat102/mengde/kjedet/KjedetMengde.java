@@ -73,13 +73,12 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 			throw new EmptyCollectionException("mengde");
 
 		boolean funnet = false;
-		LinearNode<T> forgjenger, aktuell;
-		T resultat = null;
-		/*
-		 * Fyll ut
-		 * 
-		 */
-		return resultat;
+		while(this.start.getNeste()!=null) {
+			if(this.start.getElement() == element)
+				this.start.setNeste(start.getNeste());
+			start.getNeste();
+		}
+		return element;
 	}//
 
 	@Override
@@ -113,7 +112,12 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 				likeMengder = false;
 			} else {
 				likeMengder = true;
-				// ...
+				Iterator<T> itor = oppramser();
+				while(itor.hasNext()) { 
+						if(!m2.inneholder(itor.next())) {
+							return false;
+						}			
+					}
 				return likeMengder;
 			}
 		}
@@ -135,35 +139,39 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 	public MengdeADT<T> union(MengdeADT<T> m2) {
 		MengdeADT<T> begge = new KjedetMengde<T>();
 		LinearNode<T> aktuell = start;
-		T element = null;
-
-		/*
-		 * Fyll ut
-		 */
+		begge.leggTilAlle(m2);
+		while(aktuell.getNeste()!=null) {
+			if(!begge.inneholder(aktuell.getElement())) {
+				begge.leggTil(aktuell.getElement());
+			}
+			aktuell = aktuell.getNeste();
+		}
 		return begge;
 	}//
 
 	@Override
 	public MengdeADT<T> snitt(MengdeADT<T> m2) {
 		MengdeADT<T> snittM = new KjedetMengde<T>();
-		T element;
-		/*
-		 * Fyll ut...
-		 * 
-		 * if (this.inneholder(element)) ((KjedetMengde<T>) snittM).settInn(element);
-		 */
+		LinearNode<T> aktuell = start;
+		while(aktuell.getNeste()!=null) {
+			if(m2.inneholder(aktuell.getElement())) {
+				snittM.leggTil(aktuell.getElement());
+			}
+			aktuell = aktuell.getNeste();
+		}
 		return snittM;
 	}
 
 	@Override
 	public MengdeADT<T> differens(MengdeADT<T> m2) {
 		MengdeADT<T> differensM = new KjedetMengde<T>();
-		T element;
-		/*
-		 * Fyll ut
-		 * 
-		 */
-
+		LinearNode<T> aktuell = start;
+		while(aktuell.getNeste()!=null) {
+			if(!m2.inneholder(aktuell.getElement())) {
+				differensM.leggTil(aktuell.getElement());
+			}
+			aktuell = aktuell.getNeste();
+		}
 		return differensM;
 	}
 
@@ -186,4 +194,12 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 		antall++;
 	}
 
+	public String toString(){// For klassen KjedetMengde
+		String resultat = "";
+		LinearNode<T> aktuell = start;
+		while(aktuell != null){
+		resultat += aktuell.getElement().toString() + "\t"; aktuell = aktuell.getNeste();
+		}
+		return resultat;
+		}
 }// class
