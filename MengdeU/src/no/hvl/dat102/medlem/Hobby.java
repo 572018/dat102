@@ -4,17 +4,11 @@ public class Hobby{
 	private String hobbyNavn;
 	
 	public Hobby(String hobby){
-		hobbyNavn = hobby;
+		this.hobbyNavn = hobby;
 	}
 
 	public String toString(){
-		String str = "<";
-		while(hobbyNavn != null) {
-			str = str + hobbyNavn + ", ";
-		}
-		str = str + ">";
-		str.replace(", >", ">");
-		return str;
+		return hobbyNavn;
 	}
 
 	public boolean equals(Object hobby2){

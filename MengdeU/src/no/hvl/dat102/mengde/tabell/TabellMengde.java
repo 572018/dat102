@@ -213,4 +213,5 @@ public class TabellMengde<T> implements MengdeADT<T> {
 		antall++;
 	}
 
+	
 }// class

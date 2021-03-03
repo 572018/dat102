@@ -153,12 +153,14 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 	public MengdeADT<T> snitt(MengdeADT<T> m2) {
 		MengdeADT<T> snittM = new KjedetMengde<T>();
 		LinearNode<T> aktuell = start;
-		while(aktuell.getNeste()!=null) {
+		do {
 			if(m2.inneholder(aktuell.getElement())) {
 				snittM.leggTil(aktuell.getElement());
 			}
 			aktuell = aktuell.getNeste();
 		}
+		while(aktuell != null); 
+		
 		return snittM;
 	}
 
@@ -166,12 +168,14 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 	public MengdeADT<T> differens(MengdeADT<T> m2) {
 		MengdeADT<T> differensM = new KjedetMengde<T>();
 		LinearNode<T> aktuell = start;
-		while(aktuell.getNeste()!=null) {
+		do {
 			if(!m2.inneholder(aktuell.getElement())) {
 				differensM.leggTil(aktuell.getElement());
 			}
 			aktuell = aktuell.getNeste();
 		}
+		while(aktuell != null);
+		
 		return differensM;
 	}
 
@@ -198,7 +202,9 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 		String resultat = "";
 		LinearNode<T> aktuell = start;
 		while(aktuell != null){
-		resultat += aktuell.getElement().toString() + "\t"; aktuell = aktuell.getNeste();
+			System.out.println(aktuell.getElement().toString());
+		resultat = resultat + "\n" +  aktuell.getElement().toString();
+		aktuell = aktuell.getNeste();
 		}
 		return resultat;
 		}

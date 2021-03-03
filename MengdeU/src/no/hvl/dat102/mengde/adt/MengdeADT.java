@@ -108,6 +108,8 @@ public interface MengdeADT<T> {
 	
 	
 	Iterator<T> oppramser();
+	
+	
 
 	
 

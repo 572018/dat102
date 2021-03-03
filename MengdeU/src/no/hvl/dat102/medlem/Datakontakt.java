@@ -2,7 +2,7 @@ package no.hvl.dat102.medlem;
 
 public class Datakontakt {
 	
-	private static Medlem[] medlemstab;
+	private Medlem[] medlemstab;
 	private int antall;
 	
 	public Datakontakt() {
@@ -14,7 +14,7 @@ public class Datakontakt {
 	}
 
 	public void leggTilMedlem(Medlem person) {
-		if(medlemstab.length >= antall)
+		if(antall >= medlemstab.length)
 			utvidKapasitet();
 		medlemstab[antall] = person;
 		antall++;
@@ -22,8 +22,10 @@ public class Datakontakt {
 	
 	public void slettMedlem(String navn) {
 		medlemstab[finnMedlemsIndeks(navn)] = null;
+		if(antall >= 1)
+			trimTab(medlemstab,antall-1);
 		antall--;
-		trimTab(medlemstab,antall);
+		
 	}
 	
 	public int finnMedlemsIndeks(String medlemsnavn) {
@@ -32,6 +34,7 @@ public class Datakontakt {
 			i++;
 			if(i>=medlemstab.length) {
 				i= -1;
+				System.out.println("denne personen finnes ikke i tabellen");
 				break;
 			}
 		}
@@ -54,12 +57,12 @@ public class Datakontakt {
 		medlemstab[finnMedlemsIndeks(medlemsnavn)].setStatusIndeks(-1);
 	}
 
-	public static Medlem[] getMedlemstab() {
+	public Medlem[] getMedlemstab() {
 		return medlemstab;
 	}
 
-	public static void setMedlemstab(Medlem[] medlemstab) {
-		Datakontakt.medlemstab = medlemstab;
+	public void setMedlemstab(Medlem[] medlemstab) {
+		this.medlemstab = medlemstab;
 	}
 
 	public int getAntall() {
@@ -72,7 +75,7 @@ public class Datakontakt {
 	
 	private void utvidKapasitet(){//eks. utvide 100%
 		Medlem[] tab = new Medlem[(int)Math.ceil(2 * medlemstab.length)];
-		for (int i = 0; i < tab.length; i++){
+		for (int i = 0; i <= tab.length; i++){
 		tab[i] = medlemstab[i];
 		}
 		medlemstab = tab;
@@ -82,7 +85,7 @@ public class Datakontakt {
 		Medlem[] tab = new Medlem[antall];
 		int i = 0;
 		while (i < antall) {
-			tab[i] = tab[i];
+			tab[i] = medlemstab[i];
 			i++;
 		}//while
 		
