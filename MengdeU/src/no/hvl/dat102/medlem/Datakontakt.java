@@ -21,6 +21,9 @@ public class Datakontakt {
 	}
 	
 	public void slettMedlem(String navn) {
+		if(medlemstab[finnMedlemsIndeks(navn)].getStatusIndeks()!= -1) {
+			medlemstab[medlemstab[finnMedlemsIndeks(navn)].getStatusIndeks()].setStatusIndeks(-1);
+		}
 		medlemstab[finnMedlemsIndeks(navn)] = null;
 		if(antall >= 1)
 			trimTab(medlemstab,antall-1);
